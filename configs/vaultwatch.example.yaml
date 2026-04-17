@@ -1,0 +1,19 @@
+# vaultwatch example configuration
+# Copy to vaultwatch.yaml and fill in your values.
+
+environments:
+  - name: dev
+    addr: http://127.0.0.1:8200
+    # token can also be set via VAULT_TOKEN env var
+    token: ""
+    mount_path: secret
+
+  - name: staging
+    addr: https://vault.staging.example.com
+    token: ""
+    mount_path: secret
+
+  - name: prod
+    addr: https://vault.prod.example.com
+    token: ""
+    mount_path: secret
