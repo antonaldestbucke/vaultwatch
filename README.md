@@ -40,6 +40,8 @@ vaultwatch diff \
 | `--path` | Secret path to audit |
 | `--src` / `--dst` | Source and destination for diff |
 | `--token` | Vault token (or set `VAULT_TOKEN`) |
+| `--output` | Output format: `text` (default) or `json` |
+| `--recursive` | Recursively traverse sub-paths |
 
 ---
 
