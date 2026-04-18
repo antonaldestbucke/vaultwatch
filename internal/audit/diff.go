@@ -1,44 +1,35 @@
 package audit
 
-import "fmt"
-
-// DiffResult holds keys present in only one of the two compared sets.
+// DiffResult holds the keys unique to each side and the path compared.
 type DiffResult struct {
 	Path    string
 	OnlyInA []string
 	OnlyInB []string
 }
 
-// HasDiff returns true when there is at least one key difference.
-func (d DiffResult) HasDiff() bool {
-	return len(d.OnlyInA) > 0 || len(d.OnlyInB) > 0
-}
+// DiffKeys compares two slices of keys and returns a DiffResult.
+func DiffKeys(path string, a, b []string) DiffResult {
+	setA := toSet(a)
+	setB := toSet(b)
 
-// DiffKeys compares two slices of secret keys rooted at path and returns a DiffResult.
-func DiffKeys(path string, keysA, keysB []string) DiffResult {
-	setA := toSet(keysA)
-	setB := toSet(keysB)
-
-	result := DiffResult{Path: path}
-
+	var onlyA, onlyB []string
 	for k := range setA {
 		if !setB[k] {
-			result.OnlyInA = append(result.OnlyInA, fmt.Sprintf("%s/%s", path, k))
+			onlyA = append(onlyA, k)
 		}
 	}
 	for k := range setB {
 		if !setA[k] {
-			result.OnlyInB = append(result.OnlyInB, fmt.Sprintf("%s/%s", path, k))
+			onlyB = append(onlyB, k)
 		}
 	}
-
-	return result
+	return DiffResult{Path: path, OnlyInA: onlyA, OnlyInB: onlyB}
 }
 
 func toSet(keys []string) map[string]bool {
-	s := make(map[string]bool, len(keys))
+	m := make(map[string]bool, len(keys))
 	for _, k := range keys {
-		s[k] = true
+		m[k] = true
 	}
-	return s
+	return m
 }
