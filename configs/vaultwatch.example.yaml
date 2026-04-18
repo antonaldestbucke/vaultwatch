@@ -7,13 +7,17 @@ environments:
     # token can also be set via VAULT_TOKEN env var
     token: ""
     mount_path: secret
+    # poll_interval controls how often vaultwatch checks for secret changes (default: 60s)
+    poll_interval: 30s
 
   - name: staging
     addr: https://vault.staging.example.com
     token: ""
     mount_path: secret
+    poll_interval: 60s
 
   - name: prod
     addr: https://vault.prod.example.com
     token: ""
     mount_path: secret
+    poll_interval: 120s
