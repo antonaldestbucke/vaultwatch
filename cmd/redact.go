@@ -36,7 +36,12 @@ var redactCmd = &cobra.Command{
 			return fmt.Errorf("comparison failed: %w", err)
 		}
 
-		opts := audit.RedactOptions{KeyPatterns: redactPatterns}
+		patterns := normalizePatterns(redactPatterns)
+		if len(patterns) == 0 {
+			return fmt.Errorf("at least one redact pattern is required")
+		}
+
+		opts := audit.RedactOptions{KeyPatterns: patterns}
 		redacted := audit.RedactReports(reports, opts)
 
 		audit.PrintTextReport(redacted)
@@ -46,17 +51,23 @@ var redactCmd = &cobra.Command{
 	},
 }
 
+// normalizePatterns trims whitespace from each pattern and drops empty entries.
+func normalizePatterns(patterns []string) []string {
+	result := make([]string, 0, len(patterns))
+	for _, p := range patterns {
+		if t := strings.TrimSpace(p); t != "" {
+			result = append(result, t)
+		}
+	}
+	return result
+}
+
 func init() {
 	redactCmd.Flags().String("path", "", "Vault path to audit (required)")
 	redactCmd.Flags().String("config", "vaultwatch.yaml", "Path to config file")
 	redactCmd.Flags().StringSliceVar(&redactPatterns, "redact", []string{"password", "token", "secret", "key"},
 		"Comma-separated key name patterns to redact (case-insensitive)")
 	_ = redactCmd.Flags().SetAnnotation("path", cobra.BashCompOneRequiredFlag, []string{"true"})
-
-	// Ensure default patterns are split properly if passed as single string
-	for i, p := range redactPatterns {
-		redactPatterns[i] = strings.TrimSpace(p)
-	}
 
 	rootCmd.AddCommand(redactCmd)
 }
