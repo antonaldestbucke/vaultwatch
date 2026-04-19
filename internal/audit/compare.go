@@ -7,28 +7,32 @@ import (
 	"vaultwatch/internal/vault"
 )
 
-// CompareResult holds the diff result for a single secret path across environments.
-type CompareResult struct {
+// CompareReport holds the diff result for a single secret path.
+type CompareReport struct {
 	Path    string   `json:"path"`
 	OnlyInA []string `json:"only_in_a"`
 	OnlyInB []string `json:"only_in_b"`
-	Note    string   `json:"note,omitempty"`
+	EnvA    string   `json:"env_a"`
+	EnvB    string   `json:"env_b"`
+	Notes   string   `json:"notes,omitempty"`
 }
 
-// ComparePathAcrossEnvs lists secrets at path in two Vault clients and diffs the keys.
-func ComparePathAcrossEnvs(ctx context.Context, path string, clientA, clientB *vault.Client) (CompareResult, error) {
+// ComparePathAcrossEnvs lists keys at path in two vault clients and diffs them.
+func ComparePathAcrossEnvs(ctx context.Context, path string, envA string, clientA *vault.Client, envB string, clientB *vault.Client) (CompareReport, error) {
 	keysA, err := clientA.ListSecrets(ctx, path)
 	if err != nil {
-		return CompareResult{}, fmt.Errorf("list secrets in env A at %q: %w", path, err)
+		return CompareReport{}, fmt.Errorf("list %s in %s: %w", path, envA, err)
 	}
 	keysB, err := clientB.ListSecrets(ctx, path)
 	if err != nil {
-		return CompareResult{}, fmt.Errorf("list secrets in env B at %q: %w", path, err)
+		return CompareReport{}, fmt.Errorf("list %s in %s: %w", path, envB, err)
 	}
 	diff := DiffKeys(path, keysA, keysB)
-	return CompareResult{
-		Path:    diff.Path,
+	return CompareReport{
+		Path:    path,
 		OnlyInA: diff.OnlyInA,
 		OnlyInB: diff.OnlyInB,
+		EnvA:    envA,
+		EnvB:    envB,
 	}, nil
 }
