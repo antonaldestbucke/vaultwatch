@@ -27,6 +27,9 @@ func NewClient(env, addr, token string) (*Client, error) {
 	if token == "" {
 		token = os.Getenv("VAULT_TOKEN")
 	}
+	if token == "" {
+		return nil, fmt.Errorf("no vault token provided for env %q: set VAULT_TOKEN or pass a token", env)
+	}
 	api.SetToken(token)
 
 	return &Client{
