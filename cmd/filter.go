@@ -37,6 +37,10 @@ var filterCmd = &cobra.Command{
 			OnlyDiffs:  filterOnlyDiffs,
 			PathPrefix: filterPathPrefix,
 		})
+		if len(filtered) == 0 {
+			fmt.Fprintln(os.Stdout, "No results matched the given filter criteria.")
+			return nil
+		}
 		audit.PrintTextReport(os.Stdout, filtered)
 		return nil
 	},
