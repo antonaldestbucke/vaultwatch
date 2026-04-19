@@ -1,0 +1,26 @@
+{
+  "entries": [
+    {
+      "timestamp": "2024-06-01T09:00:00Z",
+      "label": "pre-deploy",
+      "reports": [
+        {
+          "path": "secret/app/config",
+          "only_in_a": [],
+          "only_in_b": ["new_feature_flag"]
+        }
+      ]
+    },
+    {
+      "timestamp": "2024-06-02T09:00:00Z",
+      "label": "post-deploy",
+      "reports": [
+        {
+          "path": "secret/app/config",
+          "only_in_a": [],
+          "only_in_b": []
+        }
+      ]
+    }
+  ]
+}
