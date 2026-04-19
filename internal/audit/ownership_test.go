@@ -29,6 +29,13 @@ func TestSaveAndLoadOwnership_RoundTrip(t *testing.T) {
 	if len(loaded.Owners) != 2 {
 		t.Errorf("expected 2 owners, got %d", len(loaded.Owners))
 	}
+	// Verify individual fields survive the round-trip.
+	if loaded.Owners[0].Owner != "alice" {
+		t.Errorf("expected alice, got %s", loaded.Owners[0].Owner)
+	}
+	if loaded.Owners[1].Contact != "bob@example.com" {
+		t.Errorf("expected bob@example.com, got %s", loaded.Owners[1].Contact)
+	}
 }
 
 func TestLoadOwnership_MissingFile(t *testing.T) {
@@ -59,6 +66,17 @@ func TestApplyOwnership_MatchingPath(t *testing.T) {
 	}
 	if result[0].Annotations["team"] != "platform" {
 		t.Errorf("expected team platform, got %s", result[0].Annotations["team"])
+	}
+}
+
+func TestApplyOwnership_NoMatch(t *testing.T) {
+	store := sampleOwnershipStore()
+	reports := []CompareReport{
+		{Path: "secret/other/path", Diffs: []DiffResult{}},
+	}
+	result := ApplyOwnership(reports, store)
+	if result[0].Annotations["owner"] != "" {
+		t.Errorf("expected no owner annotation, got %s", result[0].Annotations["owner"])
 	}
 }
 
