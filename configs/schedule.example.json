@@ -1,0 +1,25 @@
+{
+  "entries": [
+    {
+      "name": "prod-hourly",
+      "path": "secret/prod",
+      "interval": "1h",
+      "enabled": true,
+      "last_run": ""
+    },
+    {
+      "name": "staging-halfhour",
+      "path": "secret/staging",
+      "interval": "30m",
+      "enabled": true,
+      "last_run": ""
+    },
+    {
+      "name": "dev-daily",
+      "path": "secret/dev",
+      "interval": "24h",
+      "enabled": false,
+      "last_run": ""
+    }
+  ]
+}
