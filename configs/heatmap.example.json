@@ -1,0 +1,21 @@
+{
+  "_comment": "Example output shape from vaultwatch heatmap command",
+  "total": 12,
+  "entries": [
+    {
+      "path": "secret/app/backend",
+      "drift_count": 5,
+      "envs": ["dev", "prod"]
+    },
+    {
+      "path": "secret/app/frontend",
+      "drift_count": 3,
+      "envs": ["dev", "staging"]
+    },
+    {
+      "path": "secret/db/postgres",
+      "drift_count": 1,
+      "envs": ["staging", "prod"]
+    }
+  ]
+}
