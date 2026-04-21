@@ -1,0 +1,32 @@
+[
+  {
+    "score": 42,
+    "risk": "high",
+    "report": {
+      "path": "secret/app/database",
+      "envs": ["prod", "staging", "dev"],
+      "only_in_a": ["password", "host", "port", "user", "ssl_mode"],
+      "only_in_b": []
+    }
+  },
+  {
+    "score": 75,
+    "risk": "medium",
+    "report": {
+      "path": "secret/app/cache",
+      "envs": ["prod", "staging"],
+      "only_in_a": ["ttl"],
+      "only_in_b": ["max_entries"]
+    }
+  },
+  {
+    "score": 100,
+    "risk": "low",
+    "report": {
+      "path": "secret/app/feature-flags",
+      "envs": ["prod", "staging"],
+      "only_in_a": [],
+      "only_in_b": []
+    }
+  }
+]
