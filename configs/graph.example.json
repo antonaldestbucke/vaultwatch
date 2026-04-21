@@ -1,0 +1,17 @@
+{
+  "deps": {
+    "secret/app": [
+      "secret/app/db",
+      "secret/app/cache",
+      "secret/app/queue"
+    ],
+    "secret/infra": [
+      "secret/infra/tls",
+      "secret/infra/ssh"
+    ]
+  },
+  "notes": [
+    "This file maps parent secret paths to their logical children.",
+    "Use with: vaultwatch graph --scores scores.json --deps configs/graph.example.json"
+  ]
+}
