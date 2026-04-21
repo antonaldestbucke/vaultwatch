@@ -1,0 +1,20 @@
+{
+  "rules": [
+    {
+      "pattern": "secret/prod/*",
+      "ttl": 86400000000000,
+      "notify_at": 7200000000000
+    },
+    {
+      "pattern": "secret/staging/*",
+      "ttl": 172800000000000,
+      "notify_at": 14400000000000
+    },
+    {
+      "pattern": "secret/dev/*",
+      "ttl": 604800000000000,
+      "notify_at": 86400000000000
+    }
+  ],
+  "last_seen": {}
+}
