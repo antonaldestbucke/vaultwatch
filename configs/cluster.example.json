@@ -1,0 +1,30 @@
+[
+  {
+    "path": "secret/app/prod/db",
+    "score": 0.85,
+    "risk": "high",
+    "only_in_a": ["DB_PASS"],
+    "only_in_b": []
+  },
+  {
+    "path": "secret/app/prod/cache",
+    "score": 0.80,
+    "risk": "high",
+    "only_in_a": ["REDIS_URL"],
+    "only_in_b": []
+  },
+  {
+    "path": "secret/app/staging/db",
+    "score": 0.10,
+    "risk": "low",
+    "only_in_a": [],
+    "only_in_b": []
+  },
+  {
+    "path": "secret/app/staging/cache",
+    "score": 0.15,
+    "risk": "low",
+    "only_in_a": [],
+    "only_in_b": ["CACHE_TTL"]
+  }
+]
