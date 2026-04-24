@@ -42,3 +42,8 @@ func TestFilterReports_NoOptions(t *testing.T) {
 	result := FilterReports(sampleFilterReports(), FilterOptions{})
 	assert.Len(t, result, 4)
 }
+
+func TestFilterReports_EmptyInput(t *testing.T) {
+	result := FilterReports([]DiffReport{}, FilterOptions{OnlyDiffs: true, PathPrefix: "secret/"})
+	assert.Empty(t, result)
+}
