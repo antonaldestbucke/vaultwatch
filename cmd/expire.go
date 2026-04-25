@@ -62,13 +62,19 @@ var expireCmd = &cobra.Command{
 			return nil
 		}
 
-		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
-		fmt.Fprintln(w, "ENV\tPATH\tSTATUS\tMESSAGE")
-		for _, r := range results {
-			fmt.Fprintf(w, "%s\t%s\t%s\t%s\n", r.Env, r.Path, r.Status, r.Message)
-		}
-		return w.Flush()
+		return printExpiryResults(results)
 	},
+}
+
+// printExpiryResults writes expiry evaluation results to stdout in a
+// tab-aligned table with columns: ENV, PATH, STATUS, MESSAGE.
+func printExpiryResults(results []audit.ExpiryResult) error {
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
+	fmt.Fprintln(w, "ENV\tPATH\tSTATUS\tMESSAGE")
+	for _, r := range results {
+		fmt.Fprintf(w, "%s\t%s\t%s\t%s\n", r.Env, r.Path, r.Status, r.Message)
+	}
+	return w.Flush()
 }
 
 func init() {
