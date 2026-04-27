@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "path": "secret/app/database",
+      "stage": "active",
+      "updated_at": "2024-06-01T00:00:00Z",
+      "note": "Primary database credentials"
+    },
+    {
+      "path": "secret/app/legacy-api",
+      "stage": "deprecated",
+      "updated_at": "2024-05-15T00:00:00Z",
+      "note": "Replaced by secret/app/api-v2"
+    },
+    {
+      "path": "secret/app/old-service",
+      "stage": "retired",
+      "updated_at": "2024-04-01T00:00:00Z",
+      "note": "Service decommissioned Q1 2024"
+    }
+  ]
+}
