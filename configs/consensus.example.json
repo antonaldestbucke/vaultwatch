@@ -1,0 +1,38 @@
+[
+  {
+    "environment": "prod",
+    "score": 92,
+    "risk": "low",
+    "reports": [
+      {
+        "path": "secret/app/config",
+        "only_in_a": ["db_password", "api_key", "jwt_secret"],
+        "only_in_b": []
+      }
+    ]
+  },
+  {
+    "environment": "staging",
+    "score": 85,
+    "risk": "low",
+    "reports": [
+      {
+        "path": "secret/app/config",
+        "only_in_a": ["db_password", "api_key", "jwt_secret"],
+        "only_in_b": []
+      }
+    ]
+  },
+  {
+    "environment": "dev",
+    "score": 60,
+    "risk": "medium",
+    "reports": [
+      {
+        "path": "secret/app/config",
+        "only_in_a": ["db_password"],
+        "only_in_b": ["debug_token"]
+      }
+    ]
+  }
+]
