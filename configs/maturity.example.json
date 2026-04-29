@@ -1,0 +1,30 @@
+[
+  {
+    "path": "secret/app/config",
+    "env": "dev",
+    "score": 95,
+    "risk": "low",
+    "drifted_keys": []
+  },
+  {
+    "path": "secret/app/config",
+    "env": "staging",
+    "score": 88,
+    "risk": "low",
+    "drifted_keys": ["DB_HOST"]
+  },
+  {
+    "path": "secret/app/config",
+    "env": "prod",
+    "score": 91,
+    "risk": "low",
+    "drifted_keys": []
+  },
+  {
+    "path": "secret/legacy/creds",
+    "env": "dev",
+    "score": 32,
+    "risk": "high",
+    "drifted_keys": ["API_KEY", "SECRET", "TOKEN"]
+  }
+]
