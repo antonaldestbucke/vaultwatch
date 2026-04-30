@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "path_prefix": "secret/app",
+      "max_drifted": 3
+    },
+    {
+      "path_prefix": "secret/infra",
+      "max_drifted": 1
+    },
+    {
+      "path_prefix": "",
+      "max_drifted": 10
+    }
+  ]
+}
